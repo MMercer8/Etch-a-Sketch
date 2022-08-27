@@ -26,6 +26,9 @@ function makeGrid(gridSize) {
     }
 }
 
+board.style.gridTemplateColumns = `repeat(${boardSize},1fr)`
+console.log(board.style.gridTemplateColumns);
+board.style.gridTemplateRows = `repeat(${boardSize},1fr)`
 
 makeGrid(boardSize);
 
