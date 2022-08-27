@@ -9,6 +9,7 @@ function makeGrid(gridSize) {
         //create row
         const row = document.createElement('div');
         board.appendChild(row);
+        row.border = '2px solid orange';
         for (let j = 1; j <= gridSize; j++) {
         console.log("j: " + j);
         const div = document.createElement('div');
@@ -63,3 +64,16 @@ function resizeGrid() {
 function scaledivs() {
     
 }
+
+
+/* 
+old code here
+
+
+
+
+
+
+
+
+*/
