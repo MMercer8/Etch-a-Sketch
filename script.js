@@ -1,8 +1,118 @@
-//initial grid size = 64x64
-let boardSize = 15;
+//initial grid size = 64 x 64
+const DEFAULT_COLOR = '#333333'; 
+const DEFAULT_SIZE = 30;
+
+
+
+const grid = document.getElementById('grid');
+
+let currentSize = DEFAULT_SIZE;
+let currentColor = DEFAULT_COLOR;
 let cellDimensions = 0;
 const board = document.getElementById('board');
-console.log(board);
+let mouseDown = false;
+const sizeValue = document.getElementById('sizeValue');
+sizeValue.textContent = (`Size: ${currentSize}`);
+const boardSizeSlider = document.getElementById('boardSize');
+//boardSizeSlider.addEventListener('change', sizeChange);
+boardSizeSlider.onchange = function(event) {
+    currentSize = event.target.value;
+    setupGrid(currentSize);
+    sizeValue.textContent = (`Size: ${currentSize}`);
+    //console.log("event change works" + event.target.value);
+}
+
+let gridCells = [];
+document.body.onmousedown = () => (mouseDown = true);
+document.body.onmouseup = () => (mouseDown = false);
+
+const colorItButton = document.getElementById('colorit');
+colorItButton.addEventListener('click', clearBoard);
+function sizeChange(e) {
+  //  console.log("size changed to " + e);
+    //currentSize = e;
+
+    //console.log("currentSize: " + currentSize);
+    //setupGrid(currentSize, rgba(255,255,255,1));
+
+    
+}
+
+   //console.log("size is: " + boardSizeSlider.value);
+
+
+
+function setupGrid(gridSize) {
+    grid.innerHTML = '';
+    grid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`
+    grid.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`
+    console.log(grid.style.gridTemplateRows + " " + grid.style.gridTemplateColumns);
+    for(let i = 0; i < gridSize * gridSize; i++) {
+        const gridElement = document.createElement('div');
+       //gridElement.addEventListener('mousedown', isOver);
+       gridElement.addEventListener('mouseover', isOver);
+       gridElement.addEventListener('mousedown', isOver);
+       gridElement.classList.add('cell');
+       gridCells[i] = gridElement;
+       gridElement.style = `background-color: rgba(255, 255, 255, 1)`
+       //gridElement.style = `bgColor`
+       //cell[i].style = 'background-color: rgba(255, 255, 255, 1)'; //redundant, but deals with override of css styling
+       //gridElement.addEventListener('mouseenter', test);
+       grid.appendChild(gridElement);
+
+
+    }
+}
+
+
+
+    function isOver (e) {
+        //event.relatedTarget.style = 'background-color: rgba(25, 255, 255, 1)';
+        
+        if (e.type === 'mouseover' && !mouseDown) return
+        //if (e.type === 'mouseover' && e.type ==='mousedown'){
+        this.style = `background-color: rgba(25,255,255,12)`;
+        //}
+        //alert('it worked');
+        //e.stopPropogation();
+    }
+
+   
+
+window.onload = () => {
+   setupGrid(DEFAULT_SIZE);
+    console.log("loaded");
+}
+
+function clearBoard() {
+  grid.innerHTML = '';
+  setupGrid(DEFAULT_SIZE);
+ 
+}
+
+
+function changeGridColor() {
+    console.log(gridCells);
+    gridCells.forEach(element => {
+        
+        element.style = `background-color: rgba(255,255,255,1)`;
+    });
+}
+/*
+const XXXX = document.getElementById('element');
+
+*/
+
+
+/* 
+old code here
+
+  console.log(gridCells);
+    gridCells.forEach(element => {
+        
+        element.style = `background-color: rgba(255,255,255,1)`;
+    });
+
 function makeGrid(gridSize) {
     //loop
     for(let i = 1; i <= gridSize; i++) {
@@ -38,8 +148,9 @@ const allCells = document.querySelectorAll('.cell');
 
 const btn = document.querySelector('.colorit');
 console.log('btn ' + btn);
-
 console.log(allCells);
+
+
 
 function colorSquare() {
     //change color of square when mouse click/drags over div
@@ -69,14 +180,7 @@ function scaledivs() {
 }
 
 
-/* 
-old code here
-
-this is a mothafuckin test
-
-
-this is a wholenew test
-
 
 
 */
+
