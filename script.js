@@ -1,13 +1,15 @@
 //initial grid size = 64 x 64
 const DEFAULT_COLOR = '#333333'; 
 const DEFAULT_SIZE = 30;
-
+let currentSize = DEFAULT_SIZE;
+let currentColor = DEFAULT_COLOR;
 
 
 const grid = document.getElementById('grid');
-
-let currentSize = DEFAULT_SIZE;
-let currentColor = DEFAULT_COLOR;
+const colorPicker = document.getElementById('colorPickerID');
+colorPicker.addEventListener('change', changeDrawColor);
+console.log(currentColor);
+const bluebtn = document.getElementById('bluebtn');
 let cellDimensions = 0;
 const board = document.getElementById('board');
 let mouseDown = false;
@@ -71,7 +73,7 @@ function setupGrid(gridSize) {
         
         if (e.type === 'mouseover' && !mouseDown) return
         //if (e.type === 'mouseover' && e.type ==='mousedown'){
-        this.style = `background-color: rgba(25,255,255,12)`;
+        this.style = `background-color: ${currentColor}`;
         //}
         //alert('it worked');
         //e.stopPropogation();
@@ -90,12 +92,19 @@ function clearBoard() {
  
 }
 
+function changeDrawColor() {
+    console.log("current color before: " + currentColor);
+    currentColor = colorPicker.value;
+    console.log("current color after: " + currentColor);
+}
 
-function changeGridColor() {
+
+
+function changeGridColor(color) {
     console.log(gridCells);
     gridCells.forEach(element => {
         
-        element.style = `background-color: rgba(255,255,255,1)`;
+        element.style = `background-color: ${color})`;
     });
 }
 /*
